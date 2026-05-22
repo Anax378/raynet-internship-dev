@@ -57,6 +57,7 @@ app.get('/api/cases', (req, res) => {
 	  amount: item.totalAmountInDefaultCurrency,
 	  lastActivity: lastActivity(item),
 	  person: item.person.fullName,
+	  probability: item.probability,
       type: item._entityName
 
     }));

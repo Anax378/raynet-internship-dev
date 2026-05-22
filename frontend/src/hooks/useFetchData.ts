@@ -5,6 +5,14 @@ export interface DataRow {
   name: string;
   code: string;
   type: string;
+  status: string;
+  companyName: string;
+  companyId: number;
+  companyEmail: string;
+  amount: number;
+  person: string;
+  probability: number;
+  lastActivity: Date;
 }
 
 export interface ApiResponse {
@@ -23,7 +31,7 @@ export function useFetchData() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('/api/hello');
+      const response = await fetch('/api/cases');
       if (!response.ok) {
         throw new Error('Failed to fetch data');
       }

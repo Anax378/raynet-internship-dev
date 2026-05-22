@@ -1,59 +1,288 @@
 .data-table-container {
-  padding: 40px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #374151;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.data-table-title {
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 28px;
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-size: 14px;
+  color: #6b7280;
 }
 
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ŘÁDEK SEZNAMU */
+.list-row {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 16px;
+  position: relative;
+}
+
+.list-row:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Barevný pruh na levé straně */
+.list-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+.list-row.priority-high::before { background-color: #ef4444; } /* Červená */
+.list-row.priority-medium::before { background-color: #f59e0b; } /* Oranžová */
+
+.row-checkbox {
+  padding-left: 8px;
+}
+
+/* ODZNAK NEAKTIVITY */
+.inactivity-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 6px;
+  min-width: 70px;
+  text-align: center;
+}
+.inactivity-badge.danger { background-color: #fef2f2; color: #ef4444; }
+.inactivity-badge.warning { background-color: #fffbeb; color: #d97706; }
+.inactivity-badge .days { font-size: 15px; font-weight: 600; line-height: 1; margin-top: 2px;}
+.inactivity-badge .text { font-size: 10px; opacity: 0.8;}
+
+/* HLAVNÍ INFORMACE UPROSTŘED */
+.main-info {
+  flex: 1; /* Zabere zbývající místo a odtlačí tlačítka doprava */
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #111827;
+}
+
+.status-badge {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 8px;
   border-radius: 4px;
-  overflow: hidden;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.data-table thead {
-  background-color: #2c3e50;
+.details-row {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* FINANCE A ZODPOVĚDNÁ OSOBA */
+.financial-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  min-width: 130px;
+}
+
+.financial-info .value {
+  font-weight: 700;
+  font-size: 15px;
+  color: #111827;
+}
+
+.assignee {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.avatar {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* PRAVDĚPODOBNOST */
+.probability {
+  min-width: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+.prob-badge {
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.prob-high { background-color: #fef2f2; color: #ef4444; border-color: #fecaca; }
+.prob-medium { background-color: #fffbeb; color: #d97706; border-color: #fde68a; }
+
+/* AKCE / TLAČÍTKA */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  background: none;
+}
+
+.btn-primary {
+  background-color: #0d9488;
   color: white;
 }
 
-.data-table th {
-  padding: 15px;
-  text-align: left;
-  font-weight: 600;
-  border: none;
+.btn-primary:hover {
+  background-color: #0f766e;
 }
 
-.data-table td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #e0e0e0;
-  color: #555;
+.btn-outline {
+  background-color: white;
+  border-color: #d1d5db;
+  color: #374151;
 }
 
-.data-table tbody tr:hover {
-  background-color: #f0f0f0;
+.btn-outline:hover {
+  background-color: #f3f4f6;
 }
 
-.data-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.status {
-  color: #666;
-  padding: 20px;
+.no-data {
+  padding: 24px;
   text-align: center;
-  font-size: 16px;
+  color: #6b7280;
+}
+.data-table-container {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
 }
 
-.error {
-  color: #d32f2f;
-  padding: 15px;
-  background-color: #ffebee;
-  border-radius: 4px;
+.filter-bar {
+  display: flex;
+  gap: 15px;
   margin-bottom: 20px;
 }
+
+.filter-bar select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.list-row {
+  display: grid;
+  grid-template-columns: 40px 120px 1fr 150px 100px 350px;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-left: 5px solid transparent;
+}
+
+.priority-high { border-left-color: #ff4d4f; }
+.priority-medium { border-left-color: #faad14; }
+
+.inactivity-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border-radius: 6px;
+}
+
+.inactivity-badge.danger { background: #fff1f0; color: #cf1322; }
+.inactivity-badge.warning { background: #fffbe6; color: #d46b08; }
+
+.avatar {
+  background: #eee;
+  padding: 5px 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  font-size: 0.8em;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.btn-primary { background: #1890ff; color: white; border: none; }
+.btn-outline { background: white; }

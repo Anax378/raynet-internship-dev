@@ -25,13 +25,22 @@ function lastActivity(bc: BusinessCase): Date{
 	return new Date(bc.prevActivity);
 }
 
+function metric(bc: BusinessCase): number {
+	const now = new Date()
+	return lastActivity(bc).getTime() - now.getTime();
+}
 
 function reSort(){
 	const now = new Date()
-	jsonData.data.sort((bc) => {
-		return lastActivity(bc).getTime() - now.getTime();
+	jsonData.data.sort((abc, bbc) => {
+		return metric(abc) - metric(bbc)
 	});
 	lastSorted = now;
+}
+
+function filter(){
+
+
 }
 
 reSort()

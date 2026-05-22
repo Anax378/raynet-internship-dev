@@ -56,7 +56,7 @@ app.get('/api/cases', (req, res) => {
 	  companyEmail: item.company.primaryAddress['contactInfo.email'],
 	  amount: item.totalAmountInDefaultCurrency,
 	  lastActivity: lastActivity(item),
-	  person: item.person?.fullName,
+	  person: item.owner.fullName,
 	  probability: item.probability,
       type: item._entityName
 

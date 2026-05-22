@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
-import { BusinessCaseResponse } from './types';
+import { BusinessCase, BusinessCaseResponse } from './types';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,6 +15,26 @@ app.use(express.json());
 const dataPath = path.join(process.cwd(), '../data/data.json');
 const rawData = fs.readFileSync(dataPath, 'utf-8');
 const jsonData: BusinessCaseResponse = JSON.parse(rawData);
+let lastSorted = new Date();
+
+function lastActivity(bc: BusinessCase): Date{
+	if(bc.prevActivity === null){
+		return new Date(bc.validFrom);
+	}
+	return new Date(bc.prevActivity);
+}
+
+
+function reSort(){
+	const now = new Date()
+	jsonData.data.sort((bc) => {
+		return lastActivity(bc).getTime() - now.getTime();
+	});
+	lastSorted = now;
+}
+
+reSort()
+
 
 // Data endpoint
 app.get('/api/cases', (req, res) => {

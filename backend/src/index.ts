@@ -6,6 +6,7 @@ import { BusinessCase, BusinessCaseResponse } from './types';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const HOUR_MS = 1000 * 60 * 60;
 
 // Middleware
 app.use(cors());
@@ -34,21 +35,31 @@ function reSort(){
 }
 
 reSort()
-
+//TODO: filter only BusinessCases
 
 // Data endpoint
 app.get('/api/cases', (req, res) => {
+
+  if(Date.now() - lastSorted.getTime() > HOUR_MS*24){
+	  reSort();
+  }
+
   try {
 	
-    const dataRows = jsonData.data.slice(0, 10).map((item: any) => ({
+    const dataRows = jsonData.data.slice(0, 10).map((item: BusinessCase) => ({
       id: item.id,
       name: item.name,
       code: item.code,
+	  status: item.status,
+	  companyName: item.company.name,
+	  companyId: item.company.id,
+	  companyEmail: item.company.primaryAddress['contactInfo.email'],
+	  amount: item.totalAmountInDefaultCurrency,
       type: item._entityName
     }));
 
     res.json({
-      message: 'Hello World from Raynet API!',
+      message: 'Returning sorted BusinessCase(s)',
       timestamp: new Date().toISOString(),
       status: 'ok',
       dataRows

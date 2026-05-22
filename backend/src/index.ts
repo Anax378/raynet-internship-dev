@@ -40,7 +40,7 @@ reSort()
 // Data endpoint
 app.get('/api/cases', (req, res) => {
 
-  if(Date.now() - lastSorted.getTime() > HOUR_MS*24){
+  if(Date.now() - lastSorted.getTime() > HOUR_MS * 24){
 	  reSort();
   }
 
@@ -56,7 +56,7 @@ app.get('/api/cases', (req, res) => {
 	  companyEmail: item.company.primaryAddress['contactInfo.email'],
 	  amount: item.totalAmountInDefaultCurrency,
 	  lastActivity: lastActivity(item),
-	  person: item.person.fullName,
+	  person: item.person?.fullName,
 	  probability: item.probability,
       type: item._entityName
 

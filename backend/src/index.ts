@@ -39,8 +39,6 @@ function reSort(){
 }
 
 function filter(){
-
-
 }
 
 reSort()
@@ -53,9 +51,17 @@ app.get('/api/cases', (req, res) => {
 	  reSort();
   }
 
+  let used_data = jsonData.data;
+  if(req.query.month !== undefined && !isNaN(Number(req.query.month)) ){
+	  used_data = jsonData.data.filter((bc: BusinessCase) => {
+		  let m = new Date(bc.validFrom);
+		  return m.getMonth() === Number(req.query.month)
+	  });
+  }
+
   try {
 	
-    const dataRows = jsonData.data.slice(0, 10).map((item: BusinessCase) => ({
+    const dataRows = used_data.slice(0, 10).map((item: BusinessCase) => ({
       id: item.id,
       name: item.name,
       code: item.code,

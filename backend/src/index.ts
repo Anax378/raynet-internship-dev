@@ -55,6 +55,7 @@ app.get('/api/cases', (req, res) => {
 	  companyId: item.company.id,
 	  companyEmail: item.company.primaryAddress['contactInfo.email'],
 	  amount: item.totalAmountInDefaultCurrency,
+	  lastActivity: lastActivity(item),
       type: item._entityName
     }));
 
